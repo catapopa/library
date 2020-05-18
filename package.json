@@ -1,5 +1,5 @@
 {
-  "name": "simple-app",
+  "name": "library",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -9,7 +9,8 @@
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-openui5": "^0.16.0"
+    "grunt-openui5": "^0.16.0",
+    "cors-anywhere": "^0.4.1"
   },
   "scripts": {
     "start": "grunt serve",

@@ -1,95 +1,91 @@
-'use strict';
+"use strict";
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+  grunt.initConfig({
+    connect: {
+      options: {
+        port: 8080,
+        hostname: "*",
+      },
+      src: {},
+      dist: {},
+    },
 
-	grunt.initConfig({
+    openui5_connect: {
+      src: {
+        options: {
+          appresources: "webapp",
+        },
+      },
+      dist: {
+        options: {
+          appresources: "dist",
+        },
+      },
+    },
 
-		connect: {
-			options: {
-				port: 8080,
-				hostname: '*'
-			},
-			src: {},
-			dist: {}
-		},
+    openui5_preload: {
+      component: {
+        options: {
+          resources: {
+            cwd: "webapp",
+            prefix: "simple-app",
+            src: [
+              "**/*.js",
+              "**/*.fragment.html",
+              "**/*.fragment.json",
+              "**/*.fragment.xml",
+              "**/*.view.html",
+              "**/*.view.json",
+              "**/*.view.xml",
+              "**/*.properties",
+              "manifest.json",
+              "!test/**",
+            ],
+          },
+          dest: "dist",
+        },
+        components: true,
+      },
+    },
 
-		openui5_connect: {
-			src: {
-				options: {
-					appresources: 'webapp'
-				}
-			},
-			dist: {
-				options: {
-					appresources: 'dist'
-				}
-			}
-		},
+    clean: {
+      dist: "dist",
+      coverage: "coverage",
+    },
 
-		openui5_preload: {
-			component: {
-				options: {
-					resources: {
-						cwd: 'webapp',
-						prefix: 'simple-app',
-						src: [
-							'**/*.js',
-							'**/*.fragment.html',
-							'**/*.fragment.json',
-							'**/*.fragment.xml',
-							'**/*.view.html',
-							'**/*.view.json',
-							'**/*.view.xml',
-							'**/*.properties',
-							'manifest.json',
-							'!test/**'
-						]
-					},
-					dest: 'dist'
-				},
-				components: true
-			}
-		},
+    copy: {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: "webapp",
+            src: ["**", "!test/**"],
+            dest: "dist",
+          },
+        ],
+      },
+    },
 
-		clean: {
-			dist: 'dist',
-			coverage: 'coverage'
-		},
+    eslint: {
+      webapp: ["webapp"],
+    },
+  });
 
-		copy: {
-			dist: {
-				files: [ {
-					expand: true,
-					cwd: 'webapp',
-					src: [
-						'**',
-						'!test/**'
-					],
-					dest: 'dist'
-				} ]
-			}
-		},
+  // These plugins provide necessary tasks.
+  grunt.loadNpmTasks("grunt-contrib-connect");
+  grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-openui5");
 
-		eslint: {
-			webapp: ['webapp']
-		}
+  // Server task
+  grunt.registerTask("serve", function (target) {
+    grunt.task.run("openui5_connect:" + (target || "src") + ":keepalive");
+  });
 
-	});
+  // Build task
+  grunt.registerTask("build", ["clean:dist", "openui5_preload", "copy"]);
 
-	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-openui5');
-
-	// Server task
-	grunt.registerTask('serve', function(target) {
-		grunt.task.run('openui5_connect:' + (target || 'src') + ':keepalive');
-	});
-
-	// Build task
-	grunt.registerTask('build', ['clean:dist', 'openui5_preload', 'copy']);
-
-	// Default task
-	grunt.registerTask('default', ['serve']);
+  // Default task
+  grunt.registerTask("default", ["serve"]);
 };
