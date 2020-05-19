@@ -1,16 +1,19 @@
 {
-  "name": "library",
+  "name": "simple-app",
   "version": "1.0.0",
   "private": true,
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "^1.0.4",
+    "grunt": "^1.1.0",
+    "grunt-connect-proxy": "^0.2.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-nwabap-ui5uploader": "^1.0.4",
     "grunt-openui5": "^0.16.0",
-    "cors-anywhere": "^0.4.1"
+    "jit-grunt": "^0.10.0"
   },
   "scripts": {
     "start": "grunt serve",
