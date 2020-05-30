@@ -6,11 +6,11 @@
 
 		<Table id="idBooksTable"
 					 items="{
-			path: '/Z801_BOOK_ENTITY_IUTASet',
-			sorter: {
-				path: 'Title'
-			}
-		}"
+					path: '/Z801_BOOKENTITY_CAPOSet',
+					sorter: {
+						path: 'Title'
+					}
+				}"
 					 growing="true"
 					 growingThreshold="10"
 					 mode="SingleSelectLeft">

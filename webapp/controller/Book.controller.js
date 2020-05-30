@@ -6,7 +6,6 @@ sap.ui.define([
 
 		onDeleteBook(oEvent) {
 			const aSelContexts = this.byId('idBooksTable').getSelectedContexts();
-
 			const sPathToBook = aSelContexts[0].getPath();
 			this.getView().getModel().remove(sPathToBook);
 		},
@@ -14,8 +13,7 @@ sap.ui.define([
 		getDialog: function() {
 			if (!this.dialog) {
 				// This fragment can be instantiated from a controller as follows:
-				this.dialog = sap.ui.xmlfragment('idForm', 'org.ubb.books.view.form',
-						this);
+				this.dialog = sap.ui.xmlfragment('idForm', 'org.ubb.books.view.form',	this);
 			}
 			return this.dialog;
 		},
@@ -34,22 +32,20 @@ sap.ui.define([
 		},
 
 		onSave: function() {
-			var oISBN = sap.ui.getCore().byId('idForm--idIsbn').getValue();
-			var oTitle = sap.ui.getCore().byId('idForm--idTitle').getValue();
-			var oAuthor = sap.ui.getCore().byId('idForm--idAuthor').getValue();
-			var oLanguage = sap.ui.getCore().byId('idForm--idLanguage').getValue();
-			var oDate = sap.ui.getCore().byId('idForm--idDate').getDateValue();
-			var oTotal = sap.ui.getCore().byId('idForm--idTotalBooks').getValue();
-			var oAvailable = sap.ui.getCore().
-					byId('idForm--idAvailableBooks').
-					getValue();
+			const oISBN = sap.ui.getCore().byId('idForm--idIsbn').getValue();
+			const oTitle = sap.ui.getCore().byId('idForm--idTitle').getValue();
+			const oAuthor = sap.ui.getCore().byId('idForm--idAuthor').getValue();
+			const oLanguage = sap.ui.getCore().byId('idForm--idLanguage').getValue();
+			const oDate = sap.ui.getCore().byId('idForm--idDate').getDateValue();
+			const oTotal = sap.ui.getCore().byId('idForm--idTotalBooks').getValue();
+			const oAvailable = sap.ui.getCore().byId('idForm--idAvailableBooks').getValue();
 
-			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
+			const dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
 					{pattern: 'yyyy-MM-ddTHH:mm:ss'});
-			var date = new Date(oDate);
-			var dateFormatted = dateFormat.format(oDate);
+			const date = new Date(oDate);
+			const dateFormatted = dateFormat.format(oDate);
 
-			var oBook = {
+			const oBook = {
 				'Isbn': oISBN,
 				'Title': oTitle,
 				'Author': oAuthor,
@@ -60,31 +56,25 @@ sap.ui.define([
 			};
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
-					'/sap/opu/odata/SAP/Z801_ODATA_IUTA_SRV');
-			this.odataModel.create('/Z801_BOOK_ENTITY_IUTASet', oBook);
+					'/sap/opu/odata/SAP/Z801_LIBPROJ_CAPO_SRV');
+			this.odataModel.create('/Z801_BOOKENTITY_CAPOSet', oBook);
 		},
 
 		onUpdate: function() {
-			var oISBN = sap.ui.getCore().byId('idFormUpdate--idIsbn').getValue();
-			var oTitle = sap.ui.getCore().byId('idFormUpdate--idTitle').getValue();
-			var oAuthor = sap.ui.getCore().byId('idFormUpdate--idAuthor').getValue();
-			var oLanguage = sap.ui.getCore().
-					byId('idFormUpdate--idLanguage').
-					getValue();
-			var oDate = sap.ui.getCore().byId('idFormUpdate--idDate').getDateValue();
-			var oTotal = sap.ui.getCore().
-					byId('idFormUpdate--idTotalBooks').
-					getValue();
-			var oAvailable = sap.ui.getCore().
-					byId('idFormUpdate--idAvailableBooks').
-					getValue();
+			const oISBN = sap.ui.getCore().byId('idFormUpdate--idIsbn').getValue();
+			const oTitle = sap.ui.getCore().byId('idFormUpdate--idTitle').getValue();
+			const oAuthor = sap.ui.getCore().byId('idFormUpdate--idAuthor').getValue();
+			const oLanguage = sap.ui.getCore().byId('idFormUpdate--idLanguage').getValue();
+			const oDate = sap.ui.getCore().byId('idFormUpdate--idDate').getDateValue();
+			const oTotal = sap.ui.getCore().byId('idFormUpdate--idTotalBooks').getValue();
+			const oAvailable = sap.ui.getCore().byId('idFormUpdate--idAvailableBooks').getValue();
 
-			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
+			const dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
 					{pattern: 'yyyy-MM-ddTHH:mm:ss'});
-			var date = new Date(oDate);
-			var dateFormatted = dateFormat.format(oDate);
+			const date = new Date(oDate);
+			const dateFormatted = dateFormat.format(oDate);
 
-			var oBook = {
+			const oBook = {
 				'Isbn': oISBN,
 				'Title': oTitle,
 				'Author': oAuthor,
@@ -95,8 +85,8 @@ sap.ui.define([
 			};
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
-					'/sap/opu/odata/SAP/Z801_ODATA_IUTA_SRV');
-			this.odataModel.update('/Z801_BOOK_ENTITY_IUTASet(\'' + oISBN + '\')',
+					'/sap/opu/odata/SAP/Z801_LIBPROJ_CAPO_SRV');
+			this.odataModel.update('/Z801_BOOKENTITY_CAPOSet(\'' + oISBN + '\')',
 					oBook, null, function() {
 						alert('Update successful');
 					}, function() {
@@ -118,23 +108,22 @@ sap.ui.define([
 		},
 
 		onUpdateBook(oEvent) {
-			var oTable = this.getView().byId('idBooksTable');
-			var selectedItem = oTable.getSelectedItem();
-			var isbn = selectedItem.getBindingContext().getProperty('Isbn');
-			var title = selectedItem.getBindingContext().getProperty('Title');
-			var author = selectedItem.getBindingContext().getProperty('Author');
-			var language = selectedItem.getBindingContext().getProperty('Language');
-			var date = selectedItem.getBindingContext().getProperty('DatePublished');
-			var total = selectedItem.getBindingContext().getProperty('Totalbooks');
-			var available = selectedItem.getBindingContext().
-					getProperty('Availbooks');
+			const oTable = this.getView().byId('idBooksTable');
+			const selectedItem = oTable.getSelectedItem();
+			const isbn = selectedItem.getBindingContext().getProperty('Isbn');
+			const title = selectedItem.getBindingContext().getProperty('Title');
+			const author = selectedItem.getBindingContext().getProperty('Author');
+			const language = selectedItem.getBindingContext().getProperty('Language');
+			const date = selectedItem.getBindingContext().getProperty('DatePublished');
+			const total = selectedItem.getBindingContext().getProperty('Totalbooks');
+			const available = selectedItem.getBindingContext().getProperty('Availbooks');
 
 			this.getDialogUpdate().open();
 
-			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
+			const dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
 					{pattern: 'dd/MM/yyyy'});
-			var date1 = new Date(date);
-			var dateFormatted = dateFormat.format(date1);
+			const date1 = new Date(date);
+			const dateFormatted = dateFormat.format(date1);
 
 			sap.ui.getCore().byId('idFormUpdate--idIsbn').setValue(isbn);
 			sap.ui.getCore().byId('idFormUpdate--idTitle').setValue(title);
@@ -142,9 +131,7 @@ sap.ui.define([
 			sap.ui.getCore().byId('idFormUpdate--idLanguage').setValue(language);
 			sap.ui.getCore().byId('idFormUpdate--idDate').setValue(dateFormatted);
 			sap.ui.getCore().byId('idFormUpdate--idTotalBooks').setValue(total);
-			sap.ui.getCore().
-					byId('idFormUpdate--idAvailableBooks').
-					setValue(available);
+			sap.ui.getCore().byId('idFormUpdate--idAvailableBooks').setValue(available);
 		},
 	});
 });
