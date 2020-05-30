@@ -8,93 +8,76 @@ module.exports = function(grunt) {
 	var sClient = grunt.option('client');
 
 	// load grunt plugins
-    require('jit-grunt')(grunt, {
+	require('jit-grunt')(grunt, {
 		openui5_preload: 'grunt-openui5',
-		configureProxies: 'grunt-connect-proxy',		
-        nwabap_ui5uploader: 'grunt-nwabap-ui5uploader'
+		configureProxies: 'grunt-connect-proxy',
+		nwabap_ui5uploader: 'grunt-nwabap-ui5uploader',
 	});
-	
 
 	grunt.initConfig({
 
 		settings: {
-            connect: {
-                host: 'localhost',
-                port: '9555'
-            },
-            proxy: {
-                host: 'i42lp1.informatik.tu-muenchen.de',
-                port: '8000'
-            }
+			connect: {
+				host: 'localhost',
+				port: '9555',
+			},
+			proxy: {
+				host: 'i42lp1.informatik.tu-muenchen.de',
+				port: '8000',
+			},
 		},
-		
-		connect: {
-            options: {
-                hostname: '<%= settings.connect.host %>',
-                port: '<%= settings.connect.port %>',
-                livereload: 35729,
-                middleware: function (connect, options, defaultMiddleware) {
-                    var aMiddlewares = [];
-                    aMiddlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
-                    aMiddlewares.push(defaultMiddleware);
-                    return aMiddlewares;
-                }
-            },
-            connectWebapp: {
-                options: {
-                    base: ['webapp'],
-                    open: true
-                }
-            },
-            proxies: [
-                // {
-                //     context: '/resources',
-                //     host: '<%= settings.proxy.host %>',
-                //     port: '<%= settings.proxy.port %>',
-                //     https: false,
-                //     rewrite: {
-                //         '/resources': '/sap/public/bc/ui5_ui5/resources'
-                //     }
-				// }, 
-				{
-                    context: '/sap/opu/odata',
-                    host: '<%= settings.proxy.host %>',
-                    port: '<%= settings.proxy.port %>',
-                    https: false
-				}
-				
-            ]
-		},
-		
-		watch: {
-            options: {
-                livereload: true
-            },
-            watchWebapp: {
-                files: ['webapp/**/*']
-            }
-        },
 
-		// connect: {
-		// 	options: {
-		// 		port: 8080,
-		// 		hostname: '*'
-		// 	},
-		// 	src: {},
-		// 	dist: {}
-		// },
+		connect: {
+			options: {
+				hostname: '<%= settings.connect.host %>',
+				port: '<%= settings.connect.port %>',
+				livereload: 35729,
+				middleware: function(connect, options, defaultMiddleware) {
+					var aMiddlewares = [];
+					aMiddlewares.push(
+							require('grunt-connect-proxy/lib/utils').proxyRequest);
+					aMiddlewares.push(defaultMiddleware);
+					return aMiddlewares;
+				},
+			},
+			connectWebapp: {
+				options: {
+					base: ['webapp'],
+					open: true,
+				},
+			},
+			proxies: [
+
+				{
+					context: '/sap/opu/odata',
+					host: '<%= settings.proxy.host %>',
+					port: '<%= settings.proxy.port %>',
+					https: false,
+				},
+
+			],
+		},
+
+		watch: {
+			options: {
+				livereload: true,
+			},
+			watchWebapp: {
+				files: ['webapp/**/*'],
+			},
+		},
 
 		openui5_connect: {
 			src: {
 				options: {
-					appresources: 'webapp'
-				}
+					appresources: 'webapp',
+				},
 			},
 			dist: {
 				options: {
-					appresources: 'dist'
-				}
-			}
+					appresources: 'dist',
+				},
+			},
 		},
 
 		openui5_preload: {
@@ -113,67 +96,68 @@ module.exports = function(grunt) {
 							'**/*.view.xml',
 							'**/*.properties',
 							'manifest.json',
-							'!test/**'
-						]
+							'!test/**',
+						],
 					},
-					dest: 'dist'
+					dest: 'dist',
 				},
-				components: true
-			}
+				components: true,
+			},
 		},
 
 		nwabap_ui5uploader: {
 			upload: {
 				options: {
 					/*I42*/
-                    conn: {
+					conn: {
 						client: '801',
 						server: 'http://i42lp1.informatik.tu-muenchen.de:8000/',
-                        // transportRequest: 'I42K902395',
-                        useStrictSSL: false,
-                        port: 8000
-                    },
+						// transportRequest: 'I42K902395',
+						useStrictSSL: false,
+						port: 8000,
+					},
 					auth: {
 						user: sUser,
-						pwd: sPwd
+						pwd: sPwd,
 					},
 					ui5: {
 						language: 'EN',
 						transportno: 'I42K902395',
 						package: 'Z801_DEV_PACK_SJOO',
 						bspcontainer: 'Z801_BOOKS_SJOO',
-						bspcontainer_text: 'Books UI5 app Szila'
+						bspcontainer_text: 'Books UI5 app Szila',
 					},
 					resources: {
 						cwd: 'dist',
-						src: '**/*.*'
-					}
-				}
-			}
+						src: '**/*.*',
+					},
+				},
+			},
 		},
 
 		clean: {
 			dist: 'dist',
-			coverage: 'coverage'
+			coverage: 'coverage',
 		},
 
 		copy: {
 			dist: {
-				files: [ {
-					expand: true,
-					cwd: 'webapp',
-					src: [
-						'**',
-						'!test/**'
-					],
-					dest: 'dist'
-				} ]
-			}
+				files: [
+					{
+						expand: true,
+						cwd: 'webapp',
+						src: [
+							'**',
+							'!test/**',
+						],
+						dest: 'dist',
+					}],
+			},
 		},
 
 		eslint: {
-			webapp: ['webapp']
-		}
+			webapp: ['webapp'],
+		},
 
 	});
 
@@ -189,12 +173,15 @@ module.exports = function(grunt) {
 	// });
 
 	// register serve task
-    grunt.registerTask('serve', ['configureProxies:server', 'connect:connectWebapp', 'watch:watchWebapp']);
+	grunt.registerTask('serve', [
+		'configureProxies:server',
+		'connect:connectWebapp',
+		'watch:watchWebapp']);
 
 	// Build task
 	grunt.registerTask('build', ['clean:dist', 'openui5_preload', 'copy']);
 
-    grunt.registerTask('deploy', ['build', 'nwabap_ui5uploader:upload']);
+	grunt.registerTask('deploy', ['build', 'nwabap_ui5uploader:upload']);
 
 	// Default task
 	grunt.registerTask('default', ['serve']);

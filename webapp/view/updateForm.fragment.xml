@@ -4,7 +4,7 @@
 		xmlns:f="sap.ui.layout.form"
 		xmlns:core="sap.ui.core">
 		<Dialog>
-				<f:SimpleForm id="idForm"
+				<f:SimpleForm id="idFormUpdate"
 											minWidth="1024"
 											maxContainerCols="2"
 											editable="false"
@@ -43,7 +43,7 @@
 
 				<buttons>
 						<Button text="Close" press="closeDialog" type="Reject"/>
-						<Button text="Save" press="onSave" type="Accept"/>
+						<Button text="Update" press="onUpdate" type="Accept"/>
 				</buttons>
 		</Dialog>
 </core:FragmentDefinition>
