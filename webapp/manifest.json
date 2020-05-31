@@ -11,7 +11,7 @@
 		},
 		"dataSources": {
 			"booksService": {
-				"uri": "/sap/opu/odata/SAP/Z801_LIBPROJ_CAPO_SRV/",
+				"uri": "/sap/opu/odata/SAP/Z801_LIBRARY_CAPO_SRV",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
