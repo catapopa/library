@@ -6,7 +6,7 @@
 
 		<Table id="idBooksTable"
 					 items="{
-					path: '/Z801_BOOK_ENTITY_CAPOSet',
+					path: '/z801_book_entity_capoSet',
 					sorter: {
 						path: 'Title'
 					}

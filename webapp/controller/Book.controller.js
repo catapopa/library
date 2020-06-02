@@ -57,7 +57,7 @@ sap.ui.define([
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
 					'/sap/opu/odata/SAP/Z801_LIBRARY_CAPO_SRV');
-			this.odataModel.create('/Z801_BOOK_ENTITY_CAPOSet', oBook);
+			this.odataModel.create('/z801_book_entity_capoSet', oBook);
 		},
 
 		onUpdate: function() {
@@ -86,7 +86,7 @@ sap.ui.define([
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
 					'/sap/opu/odata/SAP/Z801_LIBRARY_CAPO_SRV');
-			this.odataModel.update('/Z801_BOOK_ENTITY_CAPOSet(\'' + oISBN + '\')',
+			this.odataModel.update('/z801_book_entity_capoSet(\'' + oISBN + '\')',
 					oBook, null, function() {
 						alert('Update successful');
 					}, function() {
