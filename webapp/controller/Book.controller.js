@@ -13,16 +13,25 @@ sap.ui.define([
 		getDialog: function() {
 			if (!this.dialog) {
 				// This fragment can be instantiated from a controller as follows:
-				this.dialog = sap.ui.xmlfragment('idForm', 'org.ubb.books.view.form',	this);
+				const i18nModel = new sap.ui.model.resource.ResourceModel({
+					bundleUrl: 'i18n/i18n.properties',
+				});
+				this.dialog = sap.ui.xmlfragment('idForm', 'org.ubb.books.view.form',
+						this);
+				this.dialog.setModel(i18nModel, 'i18n');
 			}
 			return this.dialog;
 		},
 
 		getDialogUpdate: function() {
 			if (!this.dialog) {
+				const i18nModel = new sap.ui.model.resource.ResourceModel({
+					bundleUrl: 'i18n/i18n.properties',
+				});
 				// This fragment can be instantiated from a controller as follows:
 				this.dialog = sap.ui.xmlfragment('idFormUpdate',
 						'org.ubb.books.view.updateForm', this);
+				this.dialog.setModel(i18nModel, 'i18n');
 			}
 			return this.dialog;
 		},
@@ -38,7 +47,9 @@ sap.ui.define([
 			const oLanguage = sap.ui.getCore().byId('idForm--idLanguage').getValue();
 			const oDate = sap.ui.getCore().byId('idForm--idDate').getDateValue();
 			const oTotal = sap.ui.getCore().byId('idForm--idTotalBooks').getValue();
-			const oAvailable = sap.ui.getCore().byId('idForm--idAvailableBooks').getValue();
+			const oAvailable = sap.ui.getCore().
+					byId('idForm--idAvailableBooks').
+					getValue();
 
 			const dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
 					{pattern: 'yyyy-MM-ddTHH:mm:ss'});
@@ -57,17 +68,28 @@ sap.ui.define([
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
 					'/sap/opu/odata/SAP/Z801_LIBRARY_CAPO_SRV');
+
 			this.odataModel.create('/z801_book_entity_capoSet', oBook);
 		},
 
 		onUpdate: function() {
 			const oISBN = sap.ui.getCore().byId('idFormUpdate--idIsbn').getValue();
 			const oTitle = sap.ui.getCore().byId('idFormUpdate--idTitle').getValue();
-			const oAuthor = sap.ui.getCore().byId('idFormUpdate--idAuthor').getValue();
-			const oLanguage = sap.ui.getCore().byId('idFormUpdate--idLanguage').getValue();
-			const oDate = sap.ui.getCore().byId('idFormUpdate--idDate').getDateValue();
-			const oTotal = sap.ui.getCore().byId('idFormUpdate--idTotalBooks').getValue();
-			const oAvailable = sap.ui.getCore().byId('idFormUpdate--idAvailableBooks').getValue();
+			const oAuthor = sap.ui.getCore().
+					byId('idFormUpdate--idAuthor').
+					getValue();
+			const oLanguage = sap.ui.getCore().
+					byId('idFormUpdate--idLanguage').
+					getValue();
+			const oDate = sap.ui.getCore().
+					byId('idFormUpdate--idDate').
+					getDateValue();
+			const oTotal = sap.ui.getCore().
+					byId('idFormUpdate--idTotalBooks').
+					getValue();
+			const oAvailable = sap.ui.getCore().
+					byId('idFormUpdate--idAvailableBooks').
+					getValue();
 
 			const dateFormat = sap.ui.core.format.DateFormat.getDateInstance(
 					{pattern: 'yyyy-MM-ddTHH:mm:ss'});
@@ -86,6 +108,7 @@ sap.ui.define([
 
 			this.odataModel = new sap.ui.model.odata.ODataModel(
 					'/sap/opu/odata/SAP/Z801_LIBRARY_CAPO_SRV');
+
 			this.odataModel.update('/z801_book_entity_capoSet(\'' + oISBN + '\')',
 					oBook, null, function() {
 						alert('Update successful');
@@ -114,9 +137,11 @@ sap.ui.define([
 			const title = selectedItem.getBindingContext().getProperty('Title');
 			const author = selectedItem.getBindingContext().getProperty('Author');
 			const language = selectedItem.getBindingContext().getProperty('Language');
-			const date = selectedItem.getBindingContext().getProperty('DatePublished');
+			const date = selectedItem.getBindingContext().
+					getProperty('DatePublished');
 			const total = selectedItem.getBindingContext().getProperty('Totalbooks');
-			const available = selectedItem.getBindingContext().getProperty('Availbooks');
+			const available = selectedItem.getBindingContext().
+					getProperty('Availbooks');
 
 			this.getDialogUpdate().open();
 
@@ -131,7 +156,9 @@ sap.ui.define([
 			sap.ui.getCore().byId('idFormUpdate--idLanguage').setValue(language);
 			sap.ui.getCore().byId('idFormUpdate--idDate').setValue(dateFormatted);
 			sap.ui.getCore().byId('idFormUpdate--idTotalBooks').setValue(total);
-			sap.ui.getCore().byId('idFormUpdate--idAvailableBooks').setValue(available);
+			sap.ui.getCore().
+					byId('idFormUpdate--idAvailableBooks').
+					setValue(available);
 		},
 	});
 });

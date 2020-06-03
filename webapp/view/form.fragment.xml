@@ -18,32 +18,32 @@
 											columnsM="2">
 						<f:content>
 								<Label text="Person No."/>
-								<Label text="ISBN"/>
+								<Label text="{i18n>isbn}"/>
 								<Input id="idIsbn"/>
 
-								<Label text="Title"/>
+								<Label text="{i18n>title}"/>
 								<Input id="idTitle"/>
 
-								<Label text="Author"/>
+								<Label text="{i18n>author}"/>
 								<Input id="idAuthor"/>
 
-								<Label text="Language"/>
+								<Label text="{i18n>language}"/>
 								<Input id="idLanguage"/>
 
-								<Label text="Publish Date"/>
+								<Label text="{i18n>publishedOn}"/>
 								<DatePicker id="idDate"/>
 
-								<Label text="Total Books"/>
+								<Label text="{i18n>totalBooks}"/>
 								<Input id="idTotalBooks"/>
 
-								<Label text="Available Books"/>
+								<Label text="{i18n>availableBooks}"/>
 								<Input id="idAvailableBooks"/>
 						</f:content>
 				</f:SimpleForm>
 
 				<buttons>
-						<Button text="Close" press="closeDialog" type="Reject"/>
-						<Button text="Save" press="onSave" type="Accept"/>
+						<Button text="{i18n>closeBtn}" press="closeDialog" type="Reject"/>
+						<Button text="{i18n>saveBtn}" press="onSave" type="Accept"/>
 				</buttons>
 		</Dialog>
 </core:FragmentDefinition>

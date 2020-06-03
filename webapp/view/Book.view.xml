@@ -19,13 +19,13 @@
 						<Toolbar>
 								<content>
 										<Button
-												text="Delete"
+												text="{i18n>deleteBtn}"
 												press="onDeleteBook"/>
 										<Button
-												text="Add"
+												text="{i18n>addBtn}"
 												press="onAddBook"/>
 										<Button
-												text="Update"
+												text="{i18n>updateBtn}"
 												press="onUpdateBook"/>
 								</content>
 						</Toolbar>
@@ -33,22 +33,22 @@
 
 				<columns>
 						<Column>
-								<Text text="Title"/>
+								<Text text="{i18n>title}"/>
 						</Column>
 						<Column>
-								<Text text="Author"/>
+								<Text text="{i18n>author}"/>
 						</Column>
 						<Column>
-								<Text text="Published on"/>
+								<Text text="{i18n>publishedOn}"/>
 						</Column>
 						<Column>
-								<Text text="Language"/>
+								<Text text="{i18n>language}"/>
 						</Column>
 						<Column>
-								<Text text="Available books"/>
+								<Text text="{i18n>availableBooks}"/>
 						</Column>
 						<Column>
-								<Text text="Total books"/>
+								<Text text="{i18n>totalBooks}"/>
 						</Column>
 				</columns>
 
